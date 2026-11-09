@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "plutil -lint info.plist Syntaxes/Org.tmLanguage Preferences/*.tmPreferences && node test/smoke.mjs"
+  },
+  "devDependencies": {
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.2.0"
+  }
+}
