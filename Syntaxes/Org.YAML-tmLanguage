@@ -14,7 +14,7 @@ patterns:
     ^(\*+)               # leading stars
     \s*([A-Z_]{2,})?     # todo keywords
     \s*(\[\#[A-Ca-c]\])? # priority
-    \s*(?=\s+[A-Za-z]+)  # expected heading text
+    \s*(?=\s+\S)       # expected heading text
   end: '(?=\s*$\n?)'
   beginCaptures:
     '1': {name: punctuation.definition.heading.orgmode}

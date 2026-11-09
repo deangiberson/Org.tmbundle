@@ -17,3 +17,5 @@ print("hi")
 #+BEGIN_QUOTE
 quoted text
 #+END_QUOTE
+* <2021-03-17 Wed> active timestamp heading
+** TODO [2021-03-17 Wed] inactive timestamp heading
