@@ -187,7 +187,7 @@ repository:
   heading-inline:
     patterns:
     - name: meta.keyword.orgmode
-      match: ':([^:]*)(?=:)'
+      match: ':([^:^\s]*)(?=:)'
       captures:
         '1': {name: string.quoted.keyword.orgmode}
     - include: '#inline'
