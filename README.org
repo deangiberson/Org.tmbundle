@@ -45,3 +45,7 @@ Please use/abuse/modify it under the terms of the [[http://choosealicense.com/li
 - [X] Property drawers
 - [X] File-level options & metadata
 - [X] Inline elements within block elements
+
+** Smoke test
+
+Run =npm install && npm test= on a laptop before you copy the bundle to Textastic. It lints the plists and tokenizes =test/sample.org= with the TextMate engine (=vscode-textmate=). Add a check to =test/smoke.mjs= when you change a rule.

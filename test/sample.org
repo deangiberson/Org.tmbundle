@@ -1,0 +1,19 @@
+#+TITLE: Smoke test
+* TODO [#A] First heading
+Some *bold* and /italic/ and _under_ and ~code~ and =verb= text.
+- plain item
+- [X] checked item
+- term :: definition
+1. ordered item
+# a comment
+-----
+See [[http://orgmode.org][Org]] and http://example.com today.
+:PROPERTIES:
+:CUSTOM_ID: abc
+:END:
+#+BEGIN_SRC python
+print("hi")
+#+END_SRC
+#+BEGIN_QUOTE
+quoted text
+#+END_QUOTE
