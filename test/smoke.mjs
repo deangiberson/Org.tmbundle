@@ -63,5 +63,19 @@ for (const [n, text, scope] of checks) {
     for (const t of tokens[n - 1]) console.log(`    ${JSON.stringify(t.text)} ${t.scopes.join(' ')}`);
   }
 }
-console.log(`${checks.length - failed}/${checks.length} checks passed`);
+// Issue #1: fold patterns. Each kind must match exactly these sample lines.
+const fold = readFileSync(new URL('Preferences/Folding.tmPreferences', root), 'utf8');
+const foldChecks = {
+  foldingIndentedBlockStart: [2, 20, 21],
+  foldingStartMarker: [11, 14, 17],
+  foldingStopMarker: [13, 16, 19],
+};
+for (const [key, want] of Object.entries(foldChecks)) {
+  const pat = fold.match(new RegExp(`<key>${key}</key>\\s*<string>(.*?)</string>`))[1];
+  const scanner = new onig.OnigScanner([pat]);
+  const got = lines.flatMap((l, i) => scanner.findNextMatchSync(l, 0) ? [i + 1] : []);
+  if (got.join() !== want.join()) { failed++; console.log(`FAIL ${key} matched lines ${got} want ${want}`); }
+}
+const total = checks.length + Object.keys(foldChecks).length;
+console.log(`${total - failed}/${total} checks passed`);
 process.exit(failed ? 1 : 0);

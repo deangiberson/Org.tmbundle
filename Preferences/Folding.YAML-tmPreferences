@@ -1,0 +1,17 @@
+# [PackageDev] target_format: plist, ext: tmPreferences
+---
+name: Folding
+scope: text.orgmode
+settings:
+  # A heading folds until the next heading; other lines are ignored (same as the Markdown bundle).
+  foldingIndentedBlockStart: '^\*+\s+'
+  foldingIndentedBlockIgnore: '^(?!\*+\s+)'
+  # Blocks (#+BEGIN_x ... #+END_x) and drawers (:NAME: ... :END:).
+  foldingStartMarker: '^\s*(#\+(?i:begin)_\w+|:(?!(?i:end):)[\w-]+:\s*$)'
+  foldingStopMarker: '^\s*(#\+(?i:end)_\w+|:(?i:end):\s*$)'
+  uuid: 9f0c2a5e-3d4b-4e8a-9a51-6c2b7d1e4f08
+...
+
+# Local Variables:
+# mode: yaml
+# End:
