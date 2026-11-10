@@ -37,6 +37,11 @@ const checks = [
   [12, 'abc', 'meta.drawer.properties.orgmode'],
   [15, 'print', 'meta.block.source.python.orgmode'],
   [18, 'quoted text', 'markup.quote.orgmode'],
+  // Issue #2: a heading that starts with a timestamp is still a heading.
+  [20, '*', 'punctuation.definition.heading.orgmode'],
+  [20, '<2021-03-17 Wed>', 'markup.heading.orgmode'],
+  [21, 'TODO', 'keyword.other.todo.orgmode'],
+  [21, '[2021-03-17 Wed]', 'markup.heading.orgmode'],
 ];
 
 const lines = readFileSync(new URL('test/sample.org', root), 'utf8').split('\n');
