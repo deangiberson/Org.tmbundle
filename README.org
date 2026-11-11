@@ -50,3 +50,7 @@ Please use/abuse/modify it under the terms of the [[http://choosealicense.com/li
 ** Smoke test
 
 Run =npm install && npm test= on a laptop before you copy the bundle to Textastic. It lints the plists and tokenizes =test/sample.org= with the TextMate engine (=vscode-textmate=). Add a check to =test/smoke.mjs= when you change a rule.
+
+** Debug in TextMate
+
+Run =bin/tm-link install= in a worktree to link that worktree into TextMate as =Org.tmbundle=. If the link points to a different worktree, the script replaces it. Run =bin/tm-link remove= to remove the link, and =bin/tm-link= to show where the link points. The script also warns you about other installed bundles that have the same UUID.

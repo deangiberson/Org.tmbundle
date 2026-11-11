@@ -1,0 +1,49 @@
+#!/bin/sh
+# Link this worktree into TextMate for debugging.
+# Usage: bin/tm-link [install|remove|status]   (default: status)
+set -eu
+
+TM="$HOME/Library/Application Support/TextMate"
+LINK="$TM/Bundles/Org.tmbundle"
+ROOT=$(git -C "$(dirname "$0")" rev-parse --show-toplevel)
+UUID=$(plutil -extract uuid raw "$ROOT/info.plist")
+
+# Other bundles with the same UUID make TextMate pick one at random.
+conflicts() {
+  for b in "$TM"/Bundles/*.tmbundle "$TM"/Managed/Bundles/*.tmbundle; do
+    [ -e "$b/info.plist" ] && [ "$b" != "$LINK" ] || continue
+    [ "$(plutil -extract uuid raw "$b/info.plist" 2>/dev/null)" = "$UUID" ] \
+      && echo "warning: same bundle UUID also in: $b" >&2
+  done
+  return 0
+}
+
+status() {
+  if [ -L "$LINK" ]; then echo "linked: $LINK -> $(readlink "$LINK")"
+  elif [ -e "$LINK" ]; then echo "not a link (real directory): $LINK"
+  else echo "not installed: $LINK"; fi
+  conflicts
+}
+
+case "${1:-status}" in
+  install)
+    if [ -e "$LINK" ] && [ ! -L "$LINK" ]; then
+      echo "error: $LINK is a real directory; move it away first" >&2; exit 1
+    fi
+    if [ -L "$LINK" ] && [ "$(readlink "$LINK")" != "$ROOT" ]; then
+      echo "replacing link to: $(readlink "$LINK")"
+    fi
+    mkdir -p "$TM/Bundles"
+    ln -sfn "$ROOT" "$LINK"
+    status ;;
+  remove)
+    if [ ! -L "$LINK" ]; then status; exit 0; fi
+    if [ "$(readlink "$LINK")" != "$ROOT" ] && [ "${2:-}" != "-f" ]; then
+      echo "error: link points to another worktree: $(readlink "$LINK")" >&2
+      echo "use: $0 remove -f" >&2; exit 1
+    fi
+    rm "$LINK"
+    echo "removed: $LINK" ;;
+  status) status ;;
+  *) echo "usage: $0 [install|remove [-f]|status]" >&2; exit 2 ;;
+esac
