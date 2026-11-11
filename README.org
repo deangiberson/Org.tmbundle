@@ -25,6 +25,7 @@ Please use/abuse/modify it under the terms of the [[http://choosealicense.com/li
 - [X] _Underline_
 - [X] ~Code~
 - [X] =Verbatim=
+- [X] +Strike-through+
 - [X] Comments
 - [X] Quote (#+BEGIN/END_QUOTE)
 - [X] Lists
