@@ -45,6 +45,7 @@ Please use/abuse/modify it under the terms of the [[http://choosealicense.com/li
 - [X] Property drawers
 - [X] File-level options & metadata
 - [X] Inline elements within block elements
+- [X] Folding (headings, blocks, drawers)
 
 ** Smoke test
 
