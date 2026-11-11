@@ -1,6 +1,6 @@
 #!/bin/sh
 # Link this worktree into TextMate for debugging.
-# Usage: bin/tm-link [install|remove|status]   (default: status)
+# Usage: bin/tm-link [install|remove|reload|status]   (default: status)
 set -eu
 
 TM="$HOME/Library/Application Support/TextMate"
@@ -44,6 +44,11 @@ case "${1:-status}" in
     fi
     rm "$LINK"
     echo "removed: $LINK" ;;
+  reload)
+    # TextMate does not see edits behind the link; its bundle cache keeps the old grammar.
+    if pgrep -xq TextMate; then echo "error: quit TextMate first" >&2; exit 1; fi
+    rm -f "$HOME/Library/Caches/com.macromates.TextMate/BundlesIndex.binary"
+    echo "cleared bundle cache; start TextMate" ;;
   status) status ;;
-  *) echo "usage: $0 [install|remove [-f]|status]" >&2; exit 2 ;;
+  *) echo "usage: $0 [install|remove [-f]|reload|status]" >&2; exit 2 ;;
 esac

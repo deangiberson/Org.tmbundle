@@ -597,25 +597,31 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>(?&lt;=^|[.,:;\s])/[^/]+/(?=$|[.,:;\s])</string>
+					<string>(?&lt;=^|[\s\-({'"])/[^\s/](?:[^/]*[^\s/])?/(?=$|[\s\-.,;:!?')}\["\\])</string>
 					<key>name</key>
 					<string>markup.italic.orgmode</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?&lt;=^|[.,:;\s])\*[^*]+\*(?=$|[.,:;\s])</string>
+					<string>(?&lt;=^|[\s\-({'"])\*[^\s\*](?:[^\*]*[^\s\*])?\*(?=$|[\s\-.,;:!?')}\["\\])</string>
 					<key>name</key>
 					<string>markup.bold.orgmode</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?&lt;=^|[.,:;\s])_[^_]+_(?=$|[.,:;\s])</string>
+					<string>(?&lt;=^|[\s\-({'"])_[^\s_](?:[^_]*[^\s_])?_(?=$|[\s\-.,;:!?')}\["\\])</string>
 					<key>name</key>
 					<string>markup.underline.orgmode</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?&lt;=^|[.,:;\s])([~=]).+?\1(?=$|[.,:;\s])</string>
+					<string>(?&lt;=^|[\s\-({'"])\+[^\s\+](?:[^\+]*[^\s\+])?\+(?=$|[\s\-.,;:!?')}\["\\])</string>
+					<key>name</key>
+					<string>markup.strikethrough.orgmode</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;=^|[\s\-({'"])([~=])\S(?:.*?\S)?\1(?=$|[\s\-.,;:!?')}\["\\])</string>
 					<key>name</key>
 					<string>markup.raw.inline.orgmode</string>
 				</dict>
