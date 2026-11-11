@@ -67,8 +67,8 @@ for (const [n, text, scope] of checks) {
 const fold = readFileSync(new URL('Preferences/Folding.tmPreferences', root), 'utf8');
 const foldChecks = {
   foldingIndentedBlockStart: [2, 20, 21],
-  foldingStartMarker: [11, 14, 17],
-  foldingStopMarker: [13, 16, 19],
+  foldingStartMarker: [11, 14, 17, 22],
+  foldingStopMarker: [13, 16, 19, 24],
 };
 for (const [key, want] of Object.entries(foldChecks)) {
   const pat = fold.match(new RegExp(`<key>${key}</key>\\s*<string>(.*?)</string>`))[1];

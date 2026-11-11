@@ -6,8 +6,9 @@ settings:
   # A heading folds until the next heading; other lines are ignored (same as the Markdown bundle).
   foldingIndentedBlockStart: '^\*+\s+'
   foldingIndentedBlockIgnore: '^(?!\*+\s+)'
-  # Blocks (#+BEGIN_x ... #+END_x) and drawers (:NAME: ... :END:).
-  foldingStartMarker: '^\s*(#\+(?i:begin)_\w+|:(?!(?i:end):)[\w-]+:\s*$)'
+  # Blocks (#+BEGIN_x ... #+END_x) and built-in drawers. Custom drawer names are left out:
+  # a start pattern cannot tell :NAME: from an empty property such as :CUSTOM_ID:.
+  foldingStartMarker: '^\s*(#\+(?i:begin)_\w+|:(?i:properties|logbook):\s*$)'
   foldingStopMarker: '^\s*(#\+(?i:end)_\w+|:(?i:end):\s*$)'
   uuid: 9f0c2a5e-3d4b-4e8a-9a51-6c2b7d1e4f08
 ...

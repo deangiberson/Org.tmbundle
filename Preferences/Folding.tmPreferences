@@ -13,7 +13,7 @@
 		<key>foldingIndentedBlockStart</key>
 		<string>^\*+\s+</string>
 		<key>foldingStartMarker</key>
-		<string>^\s*(#\+(?i:begin)_\w+|:(?!(?i:end):)[\w-]+:\s*$)</string>
+		<string>^\s*(#\+(?i:begin)_\w+|:(?i:properties|logbook):\s*$)</string>
 		<key>foldingStopMarker</key>
 		<string>^\s*(#\+(?i:end)_\w+|:(?i:end):\s*$)</string>
 	</dict>
