@@ -42,6 +42,17 @@ const checks = [
   [20, '<2021-03-17 Wed>', 'markup.heading.orgmode'],
   [21, 'TODO', 'keyword.other.todo.orgmode'],
   [21, '[2021-03-17 Wed]', 'markup.heading.orgmode'],
+  // Issue #6: all six emphasis markers, with org's PRE/POST characters.
+  [25, 'strike', 'markup.strikethrough.orgmode'],
+  [25, 'paren', 'markup.bold.orgmode'],
+  [25, 'quote', 'markup.italic.orgmode'],
+  [25, '=a=', 'markup.raw.inline.orgmode'],
+];
+// Each check: [line number, token text, scope that must NOT be on it]
+const notChecks = [
+  [26, '+ 2 +', 'markup.strikethrough.orgmode'],
+  [26, '* b *', 'markup.bold.orgmode'],
+  [26, '_b_', 'markup.underline.orgmode'],
 ];
 
 const lines = readFileSync(new URL('test/sample.org', root), 'utf8').split('\n');
@@ -63,6 +74,10 @@ for (const [n, text, scope] of checks) {
     for (const t of tokens[n - 1]) console.log(`    ${JSON.stringify(t.text)} ${t.scopes.join(' ')}`);
   }
 }
+for (const [n, text, scope] of notChecks) {
+  const bad = tokens[n - 1].filter(t => t.scopes.includes(scope));
+  if (bad.length) { failed++; console.log(`FAIL line ${n} "${text}" has ${scope}`); }
+}
 // Issue #1: fold patterns. Each kind must match exactly these sample lines.
 const fold = readFileSync(new URL('Preferences/Folding.tmPreferences', root), 'utf8');
 const foldChecks = {
@@ -76,6 +91,6 @@ for (const [key, want] of Object.entries(foldChecks)) {
   const got = lines.flatMap((l, i) => scanner.findNextMatchSync(l, 0) ? [i + 1] : []);
   if (got.join() !== want.join()) { failed++; console.log(`FAIL ${key} matched lines ${got} want ${want}`); }
 }
-const total = checks.length + Object.keys(foldChecks).length;
+const total = checks.length + notChecks.length + Object.keys(foldChecks).length;
 console.log(`${total - failed}/${total} checks passed`);
 process.exit(failed ? 1 : 0);
